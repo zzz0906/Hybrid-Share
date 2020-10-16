@@ -7,9 +7,9 @@
 
 #include "Node.h"
 void exclusive(){
-    
+
 }
 int main(){
-    Node n(NUMBER_OF_CORES,NUMBER_OF_GPUS);
+    //Node n(NUMBER_OF_CORES,NUMBER_OF_GPUS);
 
 }
