@@ -51,7 +51,7 @@ int main(){
     /*
         t
         n
-        c g m
+        c(cpus) g(gpus) m(memory) b(bandwidth) 
     */
     for (int i = 0; i < T; i++){
         int t;
