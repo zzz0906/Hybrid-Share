@@ -7,10 +7,11 @@ class Task:
     nicb means the average of network bandwidth needed for the task
     '''
     def __init__(self, jid, id, time, cpun, gpun, memb, nicb):
-        self.time = time
-        self.runningtime = 0
         self.id = id
         self.jid = jid
+        self.time = time
+        self.runningtime = 0
+        self.waitingtime = 0
         self.cpun = cpun
         self.gpun = gpun
         self.memb = memb
@@ -30,3 +31,19 @@ class Task:
 
     def get_remaining_time(self):
         return self.time - self.runningtime
+    
+    def count_wait(self):
+        self.waitingtime += 1
+        
+    def print_info(self):
+        print("******************** Task {} ********************".format(self.id))
+        print("jid: {}".format(self.jid))
+        print("time: {}".format(self.time))
+        print("runningtime: {}".format(self.runningtime))
+        print("cpun: {}".format(self.cpun))
+        print("gpun: {}".format(self.gpun))
+        print("memb: {}".format(self.memb))
+        print("nicb: {}".format(self.nicb))
+        
+        
+        

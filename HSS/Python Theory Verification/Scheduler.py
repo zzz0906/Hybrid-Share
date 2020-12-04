@@ -30,11 +30,15 @@ class Scheduler:
     '''
     def step(self,nodelist):
         jobindex,nodeindex,places = self.scheduling_a_job(nodelist)
-        
         while (jobindex != -1):
             for index in range(len(nodeindex)):
                 nodelist[nodeindex[index]].allocate_task([self.jobq[jobindex].tasks[index]],[places[index]]) 
                 # Basic policy only for each job index's task has a single node we can modify it to adapt to allocate_task
+            
+            # if we want to just schedule some part of the tasks into the cluster, we need to keep the job in the jobQ
             self.jobq.pop(jobindex)
             jobindex,nodeindex,places = self.scheduling_a_job(nodelist)
     
+    def count_wait(self):
+        for job in self.jobq:
+            job.count_wait()

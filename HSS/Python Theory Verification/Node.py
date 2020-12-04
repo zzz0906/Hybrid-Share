@@ -1,6 +1,8 @@
+from Task import Task
 import numpy as np
 class Node:
     '''
+    id means the id of the
     cpun means the number of CPU needs for the task
     gpun means the number of GPU needs for the task
     memb means the average of memory bandwidth needed for the task
@@ -8,14 +10,16 @@ class Node:
 
     taskQ means the task run in this node
     '''
-    def __init__(self, cpun, gpun, memb, nicb):
+    def __init__(self, id, cpun, gpun, memb, nicb):
+        self.id = id
+        
         self.cpun = cpun
         self.gpun = gpun
         self.memb = memb
         self.nicb = nicb
 
         self.taskQ = []
-
+        
         self.cpu = np.zeros(cpun)
         self.gpu = np.zeros(gpun)
 
@@ -77,8 +81,8 @@ class Node:
                 self.cpu[cpuid] = 0
                 self.allocatecpu -= 1
         for gpuid in range(len(self.gpu)):
-            if (self.cpu[gpuid] == task_index + 1):
-                self.cpu[gpuid] = 0
+            if (self.gpu[gpuid] == task_index + 1):
+                self.gpu[gpuid] = 0
                 self.allocategpu -= 1
         self.allocatedmemb -= self.taskQ[task_index].memb
         self.allocatednicb -= self.taskQ[task_index].nicb
@@ -96,4 +100,44 @@ class Node:
         return finish_task
             
             
-    
+    def print_info(self):
+        print("==================== Node {} ====================".format(self.id))
+        print("cpun: {}".format(self.cpun))
+        print("gpun: {}".format(self.gpun))
+        print("memb: {}".format(self.memb))
+        print("nicb: {}".format(self.nicb))
+        print("allocatecpu: {}".format(self.allocatecpu))
+        print("allocategpu: {}".format(self.allocategpu))
+        print("allocated cpu position:")
+        for i in range(len(self.cpu)):
+            if (i != len(self.cpu) - 1):
+                print(i,end=' ')
+            else:
+                print(i)
+        for i in range(len(self.cpu)):
+            if (i != len(self.cpu) - 1):
+                print(self.cpu[i],end=' ')
+            else:
+                print(self.cpu[i])
+        print("allocated gpu position:")
+        for i in range(len(self.gpu)):
+            if (i != len(self.gpu) - 1):
+                print(i,end=' ')
+            else:
+                print(i)
+        for i in range(len(self.gpu)):
+            if (i != len(self.gpu) - 1):
+                print(self.gpu[i],end=' ')
+            else:
+                print(self.gpu[i])
+        print("allocatememb: {}".format(self.allocatedmemb))
+        print("allocatenicb: {}".format(self.allocatednicb))
+        print("taskQ:")
+        for i in range(len(self.taskQ)):
+            if (i != len(self.taskQ) - 1):
+                self.taskQ[i].print_info()
+            else:
+                self.taskQ[i].print_info()
+        
+
+        

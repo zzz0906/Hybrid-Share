@@ -20,13 +20,15 @@ class Cluster:
             # records the task index in the nodes
             self.finish_task += node.step()
 
+        self.scheduler.count_wait()
+
     def add_jobs(self,jobs:list):
         for job in jobs:
             self.scheduler.recieve_a_job(job)
         return True
     
     def finalize(self):
-        if (len(self.finish_task) == self.N):
+        if (len(self.finish_task) >= self.N):
             return True
         return False
 
